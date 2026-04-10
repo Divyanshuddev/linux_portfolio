@@ -9,7 +9,6 @@ import BluetoothIcon from '@mui/icons-material/Bluetooth';
 import AirplanemodeActiveOutlinedIcon from '@mui/icons-material/AirplanemodeActiveOutlined';
 import NotificationsOffOutlinedIcon from '@mui/icons-material/NotificationsOffOutlined';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
-
 const styles = {
     root: {
         backgroundColor: "transparent",

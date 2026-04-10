@@ -1,7 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import statusBarPanelSlice from '../features/StatusBarPanel/StatusBarPanelSlice'
+import windowSlice from '../features/WindowSlice/WindowSlice'
 const rootReducer = combineReducers({
-  statusbarpanel:statusBarPanelSlice
+  statusbarpanel:statusBarPanelSlice,
+  window:windowSlice
 })
 
 export const store = configureStore({
