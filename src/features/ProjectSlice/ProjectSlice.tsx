@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export interface ProjectSliceState{
     selectedMenuBar:string;
+    selectedProject:number;
 }
 
 const initialState:ProjectSliceState={
-    selectedMenuBar:"Extensions"
+    selectedMenuBar:"Extensions",
+    selectedProject:1
 }
 
 export const projectSlice=createSlice({
@@ -14,9 +16,12 @@ export const projectSlice=createSlice({
     reducers:{
         selectMenuBar:(state,action)=>{
             state.selectedMenuBar = action.payload
+        },
+        selectProject:(state,action)=>{
+            state.selectedProject=action.payload
         }
     }
 })
 
-export const {selectMenuBar} = projectSlice.actions
+export const {selectMenuBar,selectProject} = projectSlice.actions
 export default projectSlice.reducer

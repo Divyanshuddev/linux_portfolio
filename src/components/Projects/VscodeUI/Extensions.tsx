@@ -27,6 +27,9 @@ import projectIcon4 from '../../../assets/Projects/projectIcon4.png'
 import projectIcon5 from '../../../assets/Projects/projectIcon5.png'
 import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
+import { useDispatch, useSelector } from "react-redux";
+import { selectProject } from "../../../features/ProjectSlice/ProjectSlice";
+import type { RootState } from "../../../store/Store";
 const projectList = [
     {
         projectId: 1,
@@ -148,7 +151,6 @@ const projectList = [
         downloads: "4.4M",
         rating: "4.7"
     },
-
 ]
 const styles = {
     root: {
@@ -192,11 +194,17 @@ const styles = {
         border: "none",
         boxSizing: "border-box",
         display: "flex",
-        // alingItems: "center",
         padding: 2,
         "&:hover": {
             backgroundColor: "#2a2d2e"
         }
+    },
+    selectedProjectSection:{
+        backgroundColor: "#04395e",
+        border: "none",
+        boxSizing: "border-box",
+        display: "flex",
+        padding: 2,
     },
     projectIcon: {
         width: 70,
@@ -240,17 +248,13 @@ const styles = {
         padding: 0,
         alignSelf: "flex-end"
     }
-    // titleStack:{
-    //     display:"flex",
-    //     alignItems:"center",
-    //     justifyContent:"space-between",
-    //     width:"100%"
-    // }
 }
 interface ExtensionsProps {
     selectedMenuBar: string;
 }
 const Extensions = ({ selectedMenuBar }: ExtensionsProps) => {
+    const dispatch = useDispatch();
+    const selectedProject = useSelector((state:RootState)=>state.projects.selectedProject)
     return (
         <Stack sx={styles.root} spacing={2} style={{ display: selectedMenuBar === "Extensions" ? "" : "none" }}>
             <Stack sx={styles.firstContainer} direction={'row'}>
@@ -265,7 +269,7 @@ const Extensions = ({ selectedMenuBar }: ExtensionsProps) => {
                 {
                     projectList.map((value, index) => {
                         return (
-                            <Stack sx={styles.projectSection} component={'button'} key={index} direction={'row'} spacing={1}>
+                            <Stack sx={selectedProject===value.projectId?styles.selectedProjectSection:styles.projectSection} component={'button'} key={index} direction={'row'} spacing={1} onClick={()=>dispatch(selectProject(value.projectId))}>
                                 <Box component={'img'} src={value.projectIcon} sx={styles.projectIcon} />
                                 <Stack >
                                     <Typography sx={styles.projectTitle} >{value.title}</Typography>

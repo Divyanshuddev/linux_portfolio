@@ -24,7 +24,7 @@ const SideBar = () => {
             boxSizing: "border-box",
             paddingTop: 1,
             paddingBottom: 1,
-            borderRight:"0.1px solid #242424"
+            borderRight: "0.1px solid #242424"
         },
         icon: {
             color: "gray"
@@ -51,8 +51,8 @@ const SideBar = () => {
             alignItems: "center",
             padding: 1,
             borderLeft: "3px solid blue",
-            "& > :first-child":{
-                color:"white"
+            "& > :first-child": {
+                color: "white"
             }
         }
     }
@@ -79,12 +79,13 @@ const SideBar = () => {
         },
         {
             title: "Accounts",
-            icon: <AccountCircleOutlinedIcon className="icon" sx={styles.icon} />
+            icon: <AccountCircleOutlinedIcon className="icon" sx={styles.icon} />,
         },
         {
             title: "Manage",
-            icon: <SettingsOutlinedIcon className="icon" sx={styles.icon} />
+            icon: <SettingsOutlinedIcon className="icon" sx={styles.icon} />,
         }
+
     ]
     return (
         <Stack sx={styles.root}>
@@ -101,9 +102,9 @@ const SideBar = () => {
             </Stack>
             <Stack spacing={1}>
                 {
-                    data.slice(5, 7).map((value, index) => {
+                    data.slice(5,7).map((value, index) => {
                         return (
-                            <Stack component={'button'} key={index} onClick={() => dispatch(selectMenuBar(value.title))} sx={styles.iconButton}>
+                            <Stack component={'button'} key={index}  sx={styles.iconButton}>
                                 {value.icon}
                             </Stack>
                         )

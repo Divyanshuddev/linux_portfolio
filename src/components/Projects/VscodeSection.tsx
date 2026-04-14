@@ -3,6 +3,7 @@ import SideBar from "./VscodeUI/SideBar"
 import Footer from "./VscodeUI/Footer"
 import SideBarDisplay from "./VscodeUI/SideBarDisplay"
 import WelcomeWindow from "./VscodeUI/WelcomeWindow"
+import ProjectPanel from "./VscodeUI/ProjectPanel"
 
 const styles={
     root:{
@@ -19,6 +20,7 @@ const VscodeSection = ()=>{
             <SideBar />
             <SideBarDisplay />
             <WelcomeWindow />
+            <ProjectPanel />
             </Stack>
             <Footer />
         </Stack>
