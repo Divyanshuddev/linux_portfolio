@@ -7,6 +7,8 @@ import imageViever from '../../assets/image_viewer.jpg'
 import vlc from '../../assets/vlc.png'
 import musicPlayer from '../../assets/music_player.png'
 import allApps from '../../assets/ubuntu_white_logo.png'
+import { useDispatch } from "react-redux"
+import { openWindow } from "../../features/WindowSlice/WindowSlice"
 const data=[
     {
         title:"About me",
@@ -67,6 +69,7 @@ const styles={
     }
 }
 const LinuxNav =()=>{
+    const dispatch = useDispatch();
     return(
         <Stack sx={styles.root}>
             <Stack direction={'column'} spacing={2} >
@@ -74,7 +77,7 @@ const LinuxNav =()=>{
                     data.map((value,index)=>{
                         return(
                             <Tooltip title={value.title} key={index} placement="right" sx={styles.tooltip} >
-                            <Stack  component={'button'} sx={styles.iconButton}>
+                            <Stack  component={'button'} sx={styles.iconButton} onClick={()=>dispatch(openWindow(value.title))}>
                                 <Box component={'img'} src={value.icon} sx={styles.icon} />
                             </Stack>
                             </Tooltip>

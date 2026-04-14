@@ -12,7 +12,8 @@ const styles = {
         boxSizing: "border-box",
         padding: 2,
         backgroundColor: "#1B211A",
-        borderRadius: 4.5
+        borderRadius: 4.5,
+        zIndex:100
     },
     uppertoolsContainer: {
         display: "flex",
