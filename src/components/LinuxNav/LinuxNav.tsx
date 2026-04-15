@@ -1,5 +1,4 @@
 import { Box, Stack, Tooltip } from "@mui/material"
-import aboutMeIcon from '../../assets/app_center.png'
 import resume from '../../assets/document_viewer.png'
 import projects from '../../assets/vscode_logo.png'
 import terminal from '../../assets/terminal.png'
@@ -9,10 +8,11 @@ import musicPlayer from '../../assets/music_player.png'
 import allApps from '../../assets/ubuntu_white_logo.png'
 import { useDispatch } from "react-redux"
 import { openWindow } from "../../features/WindowSlice/WindowSlice"
+import settingIcon from '../../assets/settingIcon.png'
 const data=[
     {
         title:"About me",
-        icon:aboutMeIcon
+        icon:settingIcon
     },
     {
         title:"Resume",

@@ -258,7 +258,7 @@ const Extensions = ({ selectedMenuBar }: ExtensionsProps) => {
     return (
         <Stack sx={styles.root} spacing={2} style={{ display: selectedMenuBar === "Extensions" ? "" : "none" }}>
             <Stack sx={styles.firstContainer} direction={'row'}>
-                <Typography sx={styles.text}>EXPLORER</Typography>
+                <Typography sx={styles.text}>EXTENSIOS</Typography>
                 <Stack direction={'row'} spacing={0.5}>
                     <RefreshIcon sx={{ color: "gray" }} fontSize="small" />
                     <MoreHorizIcon sx={{ color: "gray" }} fontSize="small" />

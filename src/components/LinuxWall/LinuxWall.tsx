@@ -5,6 +5,8 @@ import type { RootState } from "../../store/Store"
 import StatusBarPanel from "../StatusBarPanel/StatusBarPanel"
 import { useRef, useState } from "react"
 import ProjectsWindow from "../Projects/ProjectsWindow"
+import ResumeWindow from "../Resume/ResumeWindow"
+import TerminalWindow from "../Terminal/TerminalWindow"
 const styles = {
     root: {
         width: "96vw",
@@ -31,20 +33,44 @@ const LinuxWall = () => {
     });
     const statusBarPanel = useSelector((state: RootState) => state.statusbarpanel.statusBarPanel)
     const projectWindow = useSelector((state: RootState) => state.window.projectWindow)
+    const resumeWindow = useSelector((state: RootState) => state.window.resumeWindow)
+    const terminaltWindow = useSelector((state: RootState) => state.window.terminalWindow)
     return (
         <Stack sx={styles.root} >
             {statusBarPanel && <StatusBarPanel />}
             {
-            projectWindow && (
-                <ProjectsWindow
-                    id={1}
-                    containerRef={containerRef}
-                    zIndex={zOrder.indexOf(1) + 1}
-                    bringToFront={bringToFront}
-                    defaultPosition={getWindowPosition(0)}
-                />
-            )
-        }
+                projectWindow && (
+                    <ProjectsWindow
+                        id={1}
+                        containerRef={containerRef}
+                        zIndex={zOrder.indexOf(1) + 1}
+                        bringToFront={bringToFront}
+                        defaultPosition={getWindowPosition(0)}
+                    />
+                )
+            }
+            {
+                resumeWindow && (
+                    <ResumeWindow 
+                     id={2}
+                        containerRef={containerRef}
+                        zIndex={zOrder.indexOf(2) + 1}
+                        bringToFront={bringToFront}
+                        defaultPosition={getWindowPosition(1)}
+                    />
+                )
+            }
+            {
+                terminaltWindow && (
+                    <TerminalWindow 
+                    id={2}
+                        containerRef={containerRef}
+                        zIndex={zOrder.indexOf(3) + 1}
+                        bringToFront={bringToFront}
+                        defaultPosition={getWindowPosition(2)}
+                    />
+                )
+            }
         </Stack>
     )
 }

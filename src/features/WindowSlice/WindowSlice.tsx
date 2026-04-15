@@ -2,10 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export interface WindowSliceState{
     projectWindow:boolean;
+    resumeWindow:boolean;
+    terminalWindow:boolean;
 }
 
 const initialState:WindowSliceState={
     projectWindow:false,
+    resumeWindow:false,
+    terminalWindow:false
 }
 
 export const windowSlice = createSlice({
@@ -16,6 +20,12 @@ export const windowSlice = createSlice({
             switch(action.payload){
                 case 'Projects':
                     state.projectWindow=true
+                    return
+                case 'Resume':
+                    state.resumeWindow=true
+                    return
+                case 'Terminal':
+                    state.terminalWindow=true
                     return
                 default:
                     return
