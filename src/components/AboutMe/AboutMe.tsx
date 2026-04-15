@@ -1,17 +1,17 @@
 import { Stack } from "@mui/material"
 import AboutMeNav from "./AboutMeNav"
 import AboutMeDetails from "./AboutMeDetails"
-const AboutMe=()=>{
-    const styles={
-        root:{
-            display:"flex",
-            alignItems:"flex-start"
+const AboutMe = () => {
+    const styles = {
+        root: {
+            display: "flex",
+            alignItems: "flex-start"
         }
     }
-    return(
+    return (
         <Stack sx={styles.root} direction={'row'}>
-         <AboutMeNav />
-         <AboutMeDetails />
+            <AboutMeNav />
+            <AboutMeDetails />
         </Stack>
     )
 }

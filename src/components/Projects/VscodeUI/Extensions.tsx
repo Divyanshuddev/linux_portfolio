@@ -210,7 +210,6 @@ const styles = {
         width: 70,
         heigth: 70,
         boxShadow: "1px 1px 40px black",
-        // objectFit: "contain"
     },
     projectTitle: {
         color: "White",

@@ -2,7 +2,7 @@ import React from "react";
 
 const ConnectToIcon: React.FC<{ size?: number; color?: string }> = ({
   size = 22,
-  color = "#3B82F6", // blue shade similar to your icon
+  color = "#3B82F6", 
 }) => {
   return (
    <svg
@@ -12,7 +12,6 @@ const ConnectToIcon: React.FC<{ size?: number; color?: string }> = ({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Top Right Left Arrow (<) */}
       <path
         d="M19 3L11 9L19 15"
         stroke={color}
@@ -21,7 +20,6 @@ const ConnectToIcon: React.FC<{ size?: number; color?: string }> = ({
         strokeLinejoin="round"
       />
 
-      {/* Bottom Right Arrow (>) */}
       <path
         d="M9 14L17 21L9 27"
         stroke={color}

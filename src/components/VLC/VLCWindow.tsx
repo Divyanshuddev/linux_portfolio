@@ -1,29 +1,22 @@
 import { Stack } from "@mui/material"
 import { useEffect, useRef, useState } from "react"
-import Header from "./Header/Header"
-import VscodeSection from "./VscodeSection"
 import { useDispatch, useSelector } from "react-redux"
 import { isMaximizedFunc } from "../../features/WindowSlice/ResizeWindowSlice"
+import Header from "./Header"
+import VLCPanel from "./VLCPanel"
 import type { RootState } from "../../store/Store"
+const DEFAULT_SIZE = { width: "50vw", height: "70vh" }
 
-const DEFAULT_SIZE = { width: "70vw", height: "80vh" }
-
-interface ProjectsWindowProps {
+interface VLCWindowProps {
   id: number
   containerRef: React.RefObject<HTMLDivElement | null>
   zIndex: number
   bringToFront: (id: number) => void
   defaultPosition: { top: number; left: number }
 }
-
-const ProjectsWindow = ({
-  id,
-  zIndex,
-  bringToFront,
-  defaultPosition
-}: ProjectsWindowProps) => {
-  const minimizeWindow=useSelector((state:RootState)=>state.window.minimizeProjectWindow)
-  const headerRef = useRef<HTMLDivElement>(null)
+const VLCWindow = ({id,zIndex,bringToFront,defaultPosition}:VLCWindowProps)=>{
+  const minimizeWindow=useSelector((state:RootState)=>state.window.minimizeVlcWindow)
+    const headerRef = useRef<HTMLDivElement>(null)
   const dispatch = useDispatch();
   const [isMaximized, setIsMaximized] = useState(false)
 
@@ -118,8 +111,8 @@ const ProjectsWindow = ({
     }
   }, [position, isMaximized])
 
-  return (
-    <Stack
+    return(
+        <Stack
       onClick={() => bringToFront(id)}
       sx={{
         position: isMaximized ? "fixed" : "absolute",
@@ -141,8 +134,8 @@ const ProjectsWindow = ({
       <Stack
         ref={headerRef}
         sx={{
-          height: 34,
-          background: "#1f1f1f",
+          height: "4vh",
+          background: "#222222",
           cursor: isMaximized ? "default" : "move",
           justifyContent: "center",
           px: 1
@@ -154,10 +147,9 @@ const ProjectsWindow = ({
         sx={{
           flexGrow: 1,
         }}>
-          <VscodeSection />
+          <VLCPanel />
       </Stack>
     </Stack>
-  )
+    )
 }
-
-export default ProjectsWindow
+export default VLCWindow

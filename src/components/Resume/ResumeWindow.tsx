@@ -1,9 +1,10 @@
 import { Stack } from "@mui/material"
 import { useEffect, useRef, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { isMaximizedFunc } from "../../features/WindowSlice/ResizeWindowSlice"
 import Header from "./Header"
 import ResumePanel from "./ResumePanel"
+import type { RootState } from "../../store/Store"
 const DEFAULT_SIZE = { width: "50vw", height: "70vh" }
 
 interface ResumeWindowProps {
@@ -14,6 +15,7 @@ interface ResumeWindowProps {
   defaultPosition: { top: number; left: number }
 }
 const ResumeWindow = ({id,zIndex,bringToFront,defaultPosition}:ResumeWindowProps)=>{
+    const minimizeWindow=useSelector((state:RootState)=>state.window.minimizeResumeWindow)
      const headerRef = useRef<HTMLDivElement>(null)
       const dispatch = useDispatch();
       const [isMaximized, setIsMaximized] = useState(false)
@@ -124,7 +126,8 @@ const ResumeWindow = ({id,zIndex,bringToFront,defaultPosition}:ResumeWindowProps
         boxShadow: 5,
         overflow: "hidden",
         userSelect: "none",
-        zIndex
+        zIndex,
+        display:minimizeWindow?"none":""
       }}
     >
       <Stack

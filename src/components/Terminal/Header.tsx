@@ -6,6 +6,9 @@ import MinimizeIcon from '@mui/icons-material/Minimize';
 import CloseIcon from '@mui/icons-material/Close';
 import FilterNoneSharpIcon from '@mui/icons-material/FilterNoneSharp';
 import CropSquareSharpIcon from '@mui/icons-material/CropSquareSharp';
+import { useDispatch, useSelector } from "react-redux";
+import { closeWindow, minimizeWindow } from "../../features/WindowSlice/WindowSlice";
+import type { RootState } from "../../store/Store";
 const styles={
     root:{
         display:"flex",
@@ -25,6 +28,8 @@ interface HeaderProps {
     onToggleResize: () => void;
 }
 const Header=({ onToggleResize }: HeaderProps)=>{
+    const dispatch=useDispatch();
+    const isMaximized = useSelector((state:RootState)=>state.windowresize.isMaximized)
     return(
         <Stack sx={styles.root} direction={'row'}>
             <IconButton sx={styles.button}>
@@ -38,13 +43,15 @@ const Header=({ onToggleResize }: HeaderProps)=>{
                 <IconButton sx={styles.button}>
                     <MenuOutlinedIcon fontSize="small" sx={{color:"white"}} />
                 </IconButton>
-                <IconButton >
+                <IconButton onClick={()=>dispatch(minimizeWindow('Terminal'))}>
                     <MinimizeIcon fontSize="small" sx={{color:"white"}} />
                 </IconButton>
                 <IconButton onClick={()=>onToggleResize()} >
-                    <CropSquareSharpIcon fontSize="small" sx={{color:"white"}} />
+                    {
+                        isMaximized? <CropSquareSharpIcon sx={{color:"white"}} fontSize="small" />:<FilterNoneSharpIcon sx={{color:"white"}} fontSize="small" />
+                    }
                 </IconButton>
-                <IconButton >
+                <IconButton onClick={()=>dispatch(closeWindow("Terminal"))}>
                     <CloseIcon  fontSize="small" sx={{color:"white"}}/>
                 </IconButton>
             </Stack>

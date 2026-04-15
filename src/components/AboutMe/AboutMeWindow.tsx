@@ -2,8 +2,9 @@ import { Stack } from "@mui/material"
 import Header from "./Header"
 import { useEffect, useRef, useState } from "react"
 import { isMaximizedFunc } from "../../features/WindowSlice/ResizeWindowSlice"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import AboutMe from "./AboutMe"
+import type { RootState } from "../../store/Store"
 const DEFAULT_SIZE = { width: "50vw", height: "70vh" }
 
 interface AboutMeWindowProps {
@@ -13,103 +14,104 @@ interface AboutMeWindowProps {
   bringToFront: (id: number) => void
   defaultPosition: { top: number; left: number }
 }
-const AboutMeWindow=({id,zIndex,bringToFront,defaultPosition}:AboutMeWindowProps)=>{
-    const headerRef = useRef<HTMLDivElement>(null)
-      const dispatch = useDispatch();
-      const [isMaximized, setIsMaximized] = useState(false)
-    
-      const [position, setPosition] = useState({
-        x: defaultPosition?.left ?? 150,
-        y: Math.max(defaultPosition?.top ?? 100, 100)
+const AboutMeWindow = ({ id, zIndex, bringToFront, defaultPosition }: AboutMeWindowProps) => {
+  const minimizeWindow = useSelector((state: RootState) => state.window.minimizeAboutMeWindow)
+  const headerRef = useRef<HTMLDivElement>(null)
+  const dispatch = useDispatch();
+  const [isMaximized, setIsMaximized] = useState(false)
+
+  const [position, setPosition] = useState({
+    x: defaultPosition?.left ?? 150,
+    y: Math.max(defaultPosition?.top ?? 100, 100)
+  })
+
+  const [size, setSize] = useState(DEFAULT_SIZE)
+
+  const dragData = useRef({
+    isDragging: false,
+    offsetX: 0,
+    offsetY: 0
+  })
+
+  const restoreState = useRef({
+    width: DEFAULT_SIZE.width,
+    height: DEFAULT_SIZE.height,
+    x: position.x,
+    y: position.y
+  })
+
+
+  const maximize = () => {
+    if (isMaximized) return
+    restoreState.current = {
+      width: size.width,
+      height: size.height,
+      x: position.x,
+      y: position.y
+    }
+    setIsMaximized(true)
+  }
+
+  const restore = () => {
+    if (!isMaximized) return
+
+    setSize({
+      width: restoreState.current.width,
+      height: restoreState.current.height
+    })
+    setPosition({
+      x: restoreState.current.x,
+      y: restoreState.current.y
+    })
+
+    setIsMaximized(false)
+  }
+
+  const toggleResize = () => {
+    bringToFront(id)
+    dispatch(isMaximizedFunc(isMaximized))
+    console.log(isMaximized);
+
+    isMaximized ? restore() : maximize()
+  }
+  useEffect(() => {
+    const header = headerRef.current
+    if (!header) return
+
+    const onMouseDown = (e: MouseEvent) => {
+      if (isMaximized) return
+      bringToFront(id)
+
+      dragData.current.isDragging = true
+      dragData.current.offsetX = e.clientX - position.x
+      dragData.current.offsetY = e.clientY - position.y
+    }
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (!dragData.current.isDragging) return
+
+      setPosition({
+        x: e.clientX - dragData.current.offsetX,
+        y: e.clientY - dragData.current.offsetY
       })
-    
-      const [size, setSize] = useState(DEFAULT_SIZE)
-    
-      const dragData = useRef({
-        isDragging: false,
-        offsetX: 0,
-        offsetY: 0
-      })
-    
-      const restoreState = useRef({
-        width: DEFAULT_SIZE.width,
-        height: DEFAULT_SIZE.height,
-        x: position.x,
-        y: position.y
-      })
-    
-    
-      const maximize = () => {
-        if (isMaximized) return
-        restoreState.current = {
-          width: size.width,
-          height: size.height,
-          x: position.x,
-          y: position.y
-        }
-        setIsMaximized(true)
-      }
-    
-      const restore = () => {
-        if (!isMaximized) return
-    
-        setSize({
-          width: restoreState.current.width,
-          height: restoreState.current.height
-        })
-        setPosition({
-          x: restoreState.current.x,
-          y: restoreState.current.y
-        })
-    
-        setIsMaximized(false)
-      }
-    
-      const toggleResize = () => {
-        bringToFront(id)
-        dispatch(isMaximizedFunc(isMaximized))
-        console.log(isMaximized);
-        
-        isMaximized ? restore() : maximize()
-      }
-      useEffect(() => {
-        const header = headerRef.current
-        if (!header) return
-    
-        const onMouseDown = (e: MouseEvent) => {
-          if (isMaximized) return
-          bringToFront(id)
-    
-          dragData.current.isDragging = true
-          dragData.current.offsetX = e.clientX - position.x
-          dragData.current.offsetY = e.clientY - position.y
-        }
-    
-        const onMouseMove = (e: MouseEvent) => {
-          if (!dragData.current.isDragging) return
-    
-          setPosition({
-            x: e.clientX - dragData.current.offsetX,
-            y: e.clientY - dragData.current.offsetY
-          })
-        }
-    
-        const onMouseUp = () => {
-          dragData.current.isDragging = false
-        }
-    
-        header.addEventListener("mousedown", onMouseDown)
-        window.addEventListener("mousemove", onMouseMove)
-        window.addEventListener("mouseup", onMouseUp)
-    
-        return () => {
-          header.removeEventListener("mousedown", onMouseDown)
-          window.removeEventListener("mousemove", onMouseMove)
-          window.removeEventListener("mouseup", onMouseUp)
-        }
-      }, [position, isMaximized])
-    return(
-        <Stack
+    }
+
+    const onMouseUp = () => {
+      dragData.current.isDragging = false
+    }
+
+    header.addEventListener("mousedown", onMouseDown)
+    window.addEventListener("mousemove", onMouseMove)
+    window.addEventListener("mouseup", onMouseUp)
+
+    return () => {
+      header.removeEventListener("mousedown", onMouseDown)
+      window.removeEventListener("mousemove", onMouseMove)
+      window.removeEventListener("mouseup", onMouseUp)
+    }
+  }, [position, isMaximized])
+  return (
+    <Stack
       onClick={() => bringToFront(id)}
       sx={{
         position: isMaximized ? "fixed" : "absolute",
@@ -124,7 +126,8 @@ const AboutMeWindow=({id,zIndex,bringToFront,defaultPosition}:AboutMeWindowProps
         boxShadow: 5,
         overflow: "hidden",
         userSelect: "none",
-        zIndex
+        zIndex,
+        display: minimizeWindow ? "none" : ""
       }}
     >
       <Stack
@@ -146,6 +149,6 @@ const AboutMeWindow=({id,zIndex,bringToFront,defaultPosition}:AboutMeWindowProps
         <AboutMe />
       </Stack>
     </Stack>
-    )
+  )
 }
 export default AboutMeWindow

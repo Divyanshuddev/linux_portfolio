@@ -3,55 +3,47 @@ import MinimizeIcon from '@mui/icons-material/Minimize';
 import CloseIcon from '@mui/icons-material/Close';
 import FilterNoneSharpIcon from '@mui/icons-material/FilterNoneSharp';
 import CropSquareSharpIcon from '@mui/icons-material/CropSquareSharp';
-const styles={
-    root:{
-        display:"flex",
-        alignItems:"center"
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../../../store/Store";
+import { closeWindow, minimizeWindow } from "../../../features/WindowSlice/WindowSlice";
+const styles = {
+    root: {
+        display: "flex",
+        alignItems: "center"
     },
-    icon:{
-        color:"whitesmoke",
-        width:14,
-        height:14
+    icon: {
+        color: "whitesmoke",
+        width: 14,
+        height: 14
     },
-    iconButton:{
-        "&:hover":{
-            backgroundColor:"#575757"
+    iconButton: {
+        "&:hover": {
+            backgroundColor: "#575757"
         }
     }
 }
-const data=[
-    {
-        title:"Minimize",
-        icon:<MinimizeIcon sx={styles.icon} />
-    },
-    {
-        title:"MiniWindow",
-        icon:<CropSquareSharpIcon sx={styles.icon} />
-    },
-    {
-        title:"MaxiWindow",
-        icon:<FilterNoneSharpIcon sx={styles.icon} />
-    },
-    {
-        title:"Close",
-        icon:<CloseIcon sx={styles.icon} />
-    },
-]
-interface OpenCloseMinMaxProps{
-    onToggleResize:()=>void;
+
+interface OpenCloseMinMaxProps {
+    onToggleResize: () => void;
 }
-const OpenCloseMinMax =({onToggleResize}:OpenCloseMinMaxProps)=>{
-    return(
+const OpenCloseMinMax = ({ onToggleResize }: OpenCloseMinMaxProps) => {
+    const dispatch = useDispatch();
+    const isMaximized = useSelector((state: RootState) => state.windowresize.isMaximized)
+    return (
         <Stack direction={'row'} sx={styles.root}>
-            {
-                data.map((value,index)=>{
-                    return(
-                        <IconButton key={index} sx={styles.iconButton} onClick={()=>onToggleResize()}>
-                            {value.icon}
-                        </IconButton>
-                    )
-                })
-            }
+            <IconButton onClick={()=>dispatch(minimizeWindow('Projects'))}>
+                <MinimizeIcon sx={{ color: "white" }} fontSize="small" />
+            </IconButton>
+            <IconButton onClick={() => onToggleResize()}>
+                {
+                    isMaximized ? <CropSquareSharpIcon sx={{ color: "white" }} fontSize="small" /> : <FilterNoneSharpIcon sx={{ color: "white" }} fontSize="small" />
+                }
+
+            </IconButton>
+            <IconButton onClick={() => dispatch(closeWindow("Projects"))}>
+                <CloseIcon sx={{ color: "white" }} fontSize="small" />
+            </IconButton>
+
         </Stack>
     )
 }

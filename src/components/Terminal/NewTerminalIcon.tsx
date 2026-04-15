@@ -10,7 +10,6 @@ const NewTerminalIcon: React.FC<{ size?: number; color?: string }> = ({ size = 2
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Inverted U shape */}
       <path
         d="M10 30V20C10 16 13 13 17 13H31C35 13 38 16 38 20V30"
         stroke={color}
@@ -19,7 +18,6 @@ const NewTerminalIcon: React.FC<{ size?: number; color?: string }> = ({ size = 2
         strokeLinejoin="round"
       />
 
-      {/* Bottom lines (facing outward - FIXED) */}
       <line
         x1="10"
         y1="30"
@@ -39,7 +37,6 @@ const NewTerminalIcon: React.FC<{ size?: number; color?: string }> = ({ size = 2
         strokeLinecap="round"
       />
 
-      {/* Plus sign */}
       <line
         x1="24"
         y1="19"
