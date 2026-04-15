@@ -4,12 +4,14 @@ export interface WindowSliceState{
     projectWindow:boolean;
     resumeWindow:boolean;
     terminalWindow:boolean;
+    aboutMeWindow:boolean;
 }
 
 const initialState:WindowSliceState={
     projectWindow:false,
     resumeWindow:false,
-    terminalWindow:false
+    terminalWindow:false,
+    aboutMeWindow:false
 }
 
 export const windowSlice = createSlice({
@@ -26,6 +28,9 @@ export const windowSlice = createSlice({
                     return
                 case 'Terminal':
                     state.terminalWindow=true
+                    return
+                case 'About me':
+                    state.aboutMeWindow=true
                     return
                 default:
                     return

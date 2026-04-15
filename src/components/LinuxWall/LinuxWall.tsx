@@ -7,6 +7,7 @@ import { useRef, useState } from "react"
 import ProjectsWindow from "../Projects/ProjectsWindow"
 import ResumeWindow from "../Resume/ResumeWindow"
 import TerminalWindow from "../Terminal/TerminalWindow"
+import AboutMeWindow from "../AboutMe/AboutMeWindow"
 const styles = {
     root: {
         width: "96vw",
@@ -34,7 +35,8 @@ const LinuxWall = () => {
     const statusBarPanel = useSelector((state: RootState) => state.statusbarpanel.statusBarPanel)
     const projectWindow = useSelector((state: RootState) => state.window.projectWindow)
     const resumeWindow = useSelector((state: RootState) => state.window.resumeWindow)
-    const terminaltWindow = useSelector((state: RootState) => state.window.terminalWindow)
+    const terminalWindow = useSelector((state: RootState) => state.window.terminalWindow)
+     const aboutMeWindow = useSelector((state: RootState) => state.window.aboutMeWindow)
     return (
         <Stack sx={styles.root} >
             {statusBarPanel && <StatusBarPanel />}
@@ -61,13 +63,24 @@ const LinuxWall = () => {
                 )
             }
             {
-                terminaltWindow && (
+                terminalWindow && (
                     <TerminalWindow 
-                    id={2}
+                    id={3}
                         containerRef={containerRef}
                         zIndex={zOrder.indexOf(3) + 1}
                         bringToFront={bringToFront}
                         defaultPosition={getWindowPosition(2)}
+                    />
+                )
+            }
+            {
+                aboutMeWindow && (
+                    <AboutMeWindow 
+                    id={4}
+                        containerRef={containerRef}
+                        zIndex={zOrder.indexOf(4) + 1}
+                        bringToFront={bringToFront}
+                        defaultPosition={getWindowPosition(3)}
                     />
                 )
             }
