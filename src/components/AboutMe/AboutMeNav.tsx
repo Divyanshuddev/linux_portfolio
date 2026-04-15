@@ -153,7 +153,7 @@ const AboutMeNav = () => {
                                 <Box component={'img'} src={value.icon} sx={styles.icon} />
                                 <Typography sx={styles.title}>{value.title}</Typography>
                             </Stack>
-                            <Divider style={{ display: value.title === "Divider" ? "" : "none", backgroundColor: "gray", width: "100%" }} />z
+                            <Divider style={{ display: value.title === "Divider" ? "" : "none", backgroundColor: "gray", width: "100%" }} />
                         </Stack>
                     )
                 })
