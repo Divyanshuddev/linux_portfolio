@@ -76,7 +76,7 @@ export const windowSlice = createSlice({
                     window.open('https://github.com/Divyanshuddev','_blank')
                     state.allAppsWindow=false
                     return
-                case 'linkedin':
+                case 'Linkedin':
                     window.open('https://www.linkedin.com/in/divyanshu-sharma-a977011b4/','_blank')
                     state.allAppsWindow=false
                     return
